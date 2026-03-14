@@ -40,9 +40,10 @@ export default function Contact() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-6 block">
-              Contact
-            </span>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-accent-cyan font-mono text-sm">{'//'} 07</span>
+              <span className="text-accent-cyan font-mono text-xs uppercase tracking-[0.3em]">Communication</span>
+            </div>
             <h2 className={`text-4xl md:text-5xl lg:text-7xl font-bold mb-8 leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
               Let's build something <span className="text-accent-purple">amazing</span> together.
             </h2>
@@ -68,8 +69,8 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-3 rounded-xl transition-all duration-300 border ${theme === 'dark'
-                    ? 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border-white/5 hover:border-white/20'
-                    : 'bg-black/5 hover:bg-black/10 text-gray-600 hover:text-gray-900 border-black/5 hover:border-black/10'
+                  ? 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border-white/5 hover:border-white/20'
+                  : 'bg-black/5 hover:bg-black/10 text-gray-600 hover:text-gray-900 border-black/5 hover:border-black/10'
                   }`}
               >
                 <social.icon size={24} />

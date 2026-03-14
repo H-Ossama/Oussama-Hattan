@@ -280,7 +280,7 @@ export const portfolioConfig = {
     whatsapp: "+212 658559662",
   },
 
-  resume: "/certificates/Oussma_Hattan_Resume.pdf",
+  resume: "/certificates/Oussama_HATTAN_Resume_ENG_2026.pdf",
 
   meta: {
     title: "Oussama HATTAN - Backend Web Developer",

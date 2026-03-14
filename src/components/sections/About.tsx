@@ -26,7 +26,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-3 mb-8"
           >
-            <span className="text-accent-cyan font-mono text-sm">{'//'} 02</span>
+            <span className="text-accent-cyan font-mono text-sm">{'//'} 06</span>
             <span className="text-accent-cyan font-mono text-xs uppercase tracking-[0.3em]">Who I Am</span>
           </motion.div>
 
@@ -114,39 +114,7 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-1"
-              >
-                <span className={`text-4xl md:text-5xl font-bold font-mono italic ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>2<span className="text-accent-cyan">+</span></span>
-                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest block">Years Experience</span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="space-y-1"
-              >
-                <span className={`text-4xl md:text-5xl font-bold font-mono italic ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{config.projects.length + (config.mobileProjects?.length || 0)}<span className="text-accent-cyan">+</span></span>
-                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest block">Projets Réalisés</span>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="space-y-1 md:col-span-1 col-span-2"
-              >
-                <span className={`text-4xl md:text-5xl font-bold font-mono italic ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>100<span className="text-accent-cyan">%</span></span>
-                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest block">Client Satisfaction</span>
-              </motion.div>
-            </div>
+
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

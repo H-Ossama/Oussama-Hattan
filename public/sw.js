@@ -1,7 +1,7 @@
-const CACHE_NAME = 'portfolio-v3' // Updated version
-const STATIC_CACHE = 'static-v3' // Updated version
-const DYNAMIC_CACHE = 'dynamic-v3' // Updated version
-const IMAGE_CACHE = 'images-v3' // Updated version
+const CACHE_NAME = 'portfolio-v4' // Updated version
+const STATIC_CACHE = 'static-v4' // Updated version
+const DYNAMIC_CACHE = 'dynamic-v4' // Updated version
+const IMAGE_CACHE = 'images-v4' // Updated version
 
 // Essential files that must be cached for offline functionality
 const ESSENTIAL_URLS = [
@@ -28,7 +28,8 @@ const STATIC_ASSETS = [
   '/certificates/EFET.jpg',
   '/certificates/FEDE Bachelor Diplomat.jpg',
   '/certificates/FEDE Relever de note.jpg',
-  '/certificates/Oussma_Hattan_Resume.pdf',
+  '/certificates/Oussama_HATTAN_Resume_ENG_2026.pdf',
+  '/certificates/Oussama_HATTAN_Resume_FR_2026.pdf',
 
   // EFET School Management System screenshots
   '/images/efet-screenshots/efet-screenshot-1.png',

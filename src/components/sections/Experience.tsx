@@ -5,22 +5,22 @@ import { useTheme } from '@/contexts/ThemeContext'
 
 const experienceData = [
     {
-        role: "Freelance Full Stack Developer",
-        company: "Self-Employed",
+        role: "Full-Stack Developer",
+        company: "Freelance & Personal Projects",
         period: "2023 - Present",
-        description: "Developing custom web solutions for diverse clients using Next.js and Tailwind CSS. Managing end-to-end development lifecycle from requirement gathering to deployment."
+        description: "Architecting and developing scalable web applications using React, Next.js, and Node.js. Specializing in building secure RESTful APIs and modern frontend interfaces with a focus on performant, user-centric design."
     },
     {
-        role: "Network & Systems Internship",
-        company: "Tech Solutions Inc.",
-        period: "2022 - 2023",
-        description: "Assisted in network infrastructure management and system troubleshooting. Gained hands-on experience with Linux server administration and network security protocols."
+        role: "Backend & Systems Integration",
+        company: "ALX Software Engineering Program",
+        period: "2023 - 2024",
+        description: "Developed complex backend systems using Python (Flask/Django) and Node.js. Implemented secure authentication, managed SQL/NoSQL databases, and specialized in API architecture and system design during an intensive 12-month program."
     },
     {
-        role: "IT Support Specialist",
-        company: "Local Business",
-        period: "2021 - 2022",
-        description: "Provided technical support for hardware and software issues. Implemented backup solutions and maintained system uptime for critical business operations."
+        role: "Network & Systems Specialist",
+        company: "EFET / Technical Internships",
+        period: "2021 - 2023",
+        description: "Managed network infrastructure and system administration. Implemented security protocols, optimized network configurations, and handled hardware/software troubleshooting for enterprise environments."
     }
 ]
 
@@ -38,14 +38,14 @@ export default function Experience() {
                     className="mb-16"
                 >
                     <div className="flex items-center gap-4 mb-4">
-                        <span className="text-accent-cyan font-mono text-lg">04</span>
+                        <span className="text-accent-cyan font-mono text-lg">05</span>
                         <div className="h-px w-12 bg-accent-cyan/30"></div>
                         <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase">
-                            Experience
+                            Journey
                         </span>
                     </div>
                     <h2 className={`text-4xl md:text-6xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                        My Journey<span className="text-accent-cyan">.</span>
+                        My Professional Journey<span className="text-accent-cyan">.</span>
                     </h2>
                 </motion.div>
 

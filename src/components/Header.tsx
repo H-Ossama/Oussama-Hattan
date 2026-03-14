@@ -15,10 +15,10 @@ export default function Header() {
   // Order matched to page sections: Hero -> Expertise -> Projects -> Experience -> Education -> About -> Contact
   const navigation = [
     { name: labels.home, href: '#home' },
-    { name: labels.skills, href: '#expertise' }, // Mapped to Expertise section
+    { name: labels.skills, href: '#expertise' },
     { name: labels.projects, href: '#projects' },
-    // { name: 'Experience', href: '#experience' }, // Skipping pending localization update
     { name: labels.education, href: '#education' },
+    { name: 'Journey', href: '#experience' },
     { name: labels.about, href: '#about' },
     { name: labels.contact, href: '#contact' },
   ]

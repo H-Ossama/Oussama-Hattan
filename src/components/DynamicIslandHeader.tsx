@@ -11,10 +11,11 @@ import { useRouter, usePathname } from 'next/navigation'
 const navigation = [
   { name: 'home', href: '#home', num: '01' },
   { name: 'expertise', href: '#expertise', num: '02' },
-  { name: 'work', href: '#work', num: '03' },
+  { name: 'work', href: '#projects', num: '03' },
   { name: 'education', href: '#education', num: '04' },
   { name: 'experience', href: '#experience', num: '05' },
-  { name: 'contact', href: '#contact', num: '06' },
+  { name: 'about', href: '#about', num: '06' },
+  { name: 'contact', href: '#contact', num: '07' },
 ]
 
 export default function DynamicIslandHeader() {

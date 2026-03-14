@@ -159,7 +159,7 @@ export default function EnhancedProjects() {
   const displayProjects = filteredProjects.filter(p => p.id !== featuredProject?.id)
 
   return (
-    <section id="work" className="py-24 relative overflow-hidden">
+    <section id="projects" className="py-24 relative overflow-hidden">
       <div className="container-custom px-6 relative z-10">
 
         {/* Section Header - Two Column Layout */}
@@ -171,6 +171,10 @@ export default function EnhancedProjects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-accent-cyan font-mono text-sm">{'//'} 03</span>
+              <span className="text-accent-cyan font-mono text-xs uppercase tracking-[0.3em]">Selected Work</span>
+            </div>
             <h2 className={`text-7xl md:text-9xl font-bold mb-10 leading-[0.9] ${theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
               My<br />Work

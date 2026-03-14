@@ -17,7 +17,6 @@ import Expertise from '@/components/sections/Expertise'
 import EnhancedProjects from '@/components/sections/EnhancedProjects'
 import Experience from '@/components/sections/Experience'
 import Education from '@/components/sections/Education'
-import Testimonials from '@/components/sections/Testimonials'
 import Contact from '@/components/sections/Contact'
 import About from '@/components/sections/About'
 
@@ -152,31 +151,24 @@ export default function LocalePage({ params }: LocalePageProps) {
           </RevealAnimation>
         </div>
 
-        {/* 4. Experience Section (New) */}
-        <div className="lazy-section">
-          <RevealAnimation direction="up" delay={0.1}>
-            <Experience />
-          </RevealAnimation>
-        </div>
-
-        {/* 4b. Education Section (New) */}
+        {/* 4. Education Section (New) */}
         <div className="lazy-section">
           <RevealAnimation direction="up" delay={0.1}>
             <Education />
           </RevealAnimation>
         </div>
 
-        {/* 5. About (Optional, keeping as per plan) */}
+        {/* 5. Experience Section (New) - My Journey */}
         <div className="lazy-section">
           <RevealAnimation direction="up" delay={0.1}>
-            <About />
+            <Experience />
           </RevealAnimation>
         </div>
 
-        {/* 6. Testimonials (New) */}
+        {/* 6. About (Optional, keeping as per plan) */}
         <div className="lazy-section">
           <RevealAnimation direction="up" delay={0.1}>
-            <Testimonials />
+            <About />
           </RevealAnimation>
         </div>
 

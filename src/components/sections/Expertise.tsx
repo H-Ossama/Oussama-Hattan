@@ -38,9 +38,10 @@ export default function Expertise() {
                     transition={{ duration: 0.6 }}
                     className="mb-16 text-center"
                 >
-                    <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-4 block">
-                        What I Do
-                    </span>
+                    <div className="flex items-center justify-center gap-3 mb-4">
+                        <span className="text-accent-cyan font-mono text-sm">{'//'} 02</span>
+                        <span className="text-accent-cyan font-mono text-xs uppercase tracking-[0.3em]">Specialization</span>
+                    </div>
                     <h2 className={`text-3xl md:text-5xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                         My Expertise
                     </h2>

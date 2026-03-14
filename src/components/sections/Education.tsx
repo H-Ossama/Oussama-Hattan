@@ -31,8 +31,8 @@ const EducationCard = ({ edu, index, locale, theme }: { edu: EducationEntry, ind
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
       className={`group relative p-8 rounded-2xl transition-all duration-500 flex flex-col h-full ${theme === 'dark'
-          ? 'bg-white/5 border border-white/10 hover:bg-white/10'
-          : 'bg-black/5 border border-black/5 hover:bg-black/10 shadow-sm'
+        ? 'bg-white/5 border border-white/10 hover:bg-white/10'
+        : 'bg-black/5 border border-black/5 hover:bg-black/10 shadow-sm'
         } hover:border-accent-cyan/30`}
     >
       <div className="flex items-start justify-between mb-6">
@@ -116,6 +116,10 @@ export default function Education() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-accent-cyan font-mono text-sm">{'//'} 04</span>
+              <span className="text-accent-cyan font-mono text-xs uppercase tracking-[0.3em]">Knowledge Foundation</span>
+            </div>
             <h2 className={`text-6xl md:text-8xl font-bold mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
               Education<br /><span className="text-accent-cyan opacity-80">& Learning</span>
             </h2>
@@ -168,8 +172,8 @@ export default function Education() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className={`group flex items-center justify-between p-6 rounded-xl transition-all ${theme === 'dark'
-                      ? 'bg-white/5 border border-white/10 hover:bg-white/10'
-                      : 'bg-black/5 border border-black/5 hover:bg-black/10 shadow-sm'
+                    ? 'bg-white/5 border border-white/10 hover:bg-white/10'
+                    : 'bg-black/5 border border-black/5 hover:bg-black/10 shadow-sm'
                     } hover:border-accent-cyan/30`}
                 >
                   <div className="flex items-center gap-4">
@@ -186,8 +190,8 @@ export default function Education() {
 
                   {cert.url && (
                     <a href={cert.url} target="_blank" rel="noopener noreferrer" className={`p-2 rounded-full border transition-all ${theme === 'dark'
-                        ? 'border-white/10 text-gray-400 hover:text-white'
-                        : 'border-black/10 text-gray-600 hover:text-gray-900'
+                      ? 'border-white/10 text-gray-400 hover:text-white'
+                      : 'border-black/10 text-gray-600 hover:text-gray-900'
                       } hover:bg-accent-cyan/20 hover:border-accent-cyan`}>
                       <ArrowUpRight size={18} />
                     </a>
