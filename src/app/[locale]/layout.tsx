@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { absoluteUrl, getCanonicalUrl, getLocaleUrl } from '@/lib/seo-utils'
 import Script from 'next/script'
 import { Inter, Space_Grotesk } from 'next/font/google'
+import PortfolioConfigProvider from '@/components/PortfolioConfigProvider'
 
 // Optimize font loading with proper display strategy
 const inter = Inter({
@@ -149,7 +150,9 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
                     <GoogleAnalytics measurementId="G-MEASUREMENT_ID" />
 
                     <main className="min-h-screen">
-                        {children}
+            <PortfolioConfigProvider locale={locale as PortfolioLocale}>
+                {children}
+            </PortfolioConfigProvider>
                     </main>
 
                     {/* Fixed controls moved to end for correct stacking on all platforms */}

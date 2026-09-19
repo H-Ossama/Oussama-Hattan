@@ -258,6 +258,7 @@ export default function FlippableProjectCard({ project, index }: {
                       src={project.image}
                       alt={project.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                     />
                   )}

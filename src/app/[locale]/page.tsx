@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { generateHomePageStructuredData } from '@/lib/structured-data'
 import { getPortfolioConfig } from '@/lib/localization-server'
+import { getEditablePortfolioConfig } from '@/lib/portfolio-content'
 import { Metadata } from 'next'
 // Static imports for critical components to prevent loading errors
 import RevealAnimation from '@/components/RevealAnimation'
@@ -101,17 +102,18 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function LocalePage({ params }: LocalePageProps) {
+export default async function LocalePage({ params }: LocalePageProps) {
   // Validate locale
   if (!locales.includes(params.locale as Locale)) {
     notFound()
   }
 
   const locale = params.locale as Locale;
+  const config = await getEditablePortfolioConfig(locale);
   const structuredData = generateHomePageStructuredData(locale);
 
   return (
-    <ClientWrapper>
+    <ClientWrapper locale={locale} initialConfig={config}>
       {/* Structured Data for Rich Results */}
       {structuredData.map((data, index) => (
         <Script
@@ -129,8 +131,15 @@ export default function LocalePage({ params }: LocalePageProps) {
       <DevelopmentBanner />
 
       <div className="relative">
+        <div className="ambient-background" aria-hidden="true">
+          <div className="ambient-background__grid" />
+          <div className="ambient-background__orb ambient-background__orb--one" />
+          <div className="ambient-background__orb ambient-background__orb--two" />
+          <div className="ambient-background__orb ambient-background__orb--three" />
+          <div className="ambient-background__noise" />
+        </div>
         <ProgrammingSymbolsBackground />
-        <SmokeEffect />
+        {/* Ambient CSS and orbit effects provide depth without permanent blur animation. */}
 
         <ScrollProgress />
 

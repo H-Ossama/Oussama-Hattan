@@ -1,5 +1,6 @@
 'use client';
 
+import { createContext, useContext, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { portfolioConfig as enConfig } from '@/config/portfolio.en';
 import { portfolioConfig as frConfig } from '@/config/portfolio.fr';
@@ -14,6 +15,25 @@ const configs = {
   fr: frConfig,
   de: deConfig,
 };
+
+export type PortfolioProject = {
+  [key: string]: any;
+  id: number;
+  title: string;
+  description: string;
+  techStack: string[];
+  image: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+};
+
+export type PortfolioConfig = {
+  [key: string]: any;
+  projects: PortfolioProject[];
+  mobileProjects?: PortfolioProject[];
+};
+export const PortfolioConfigContext = createContext<{ config: PortfolioConfig; locale: Locale } | null>(null);
 
 // Helper function to get locale from pathname
 export function getLocaleFromPathname(pathname: string): Locale {
@@ -31,9 +51,10 @@ export function getLocaleFromPathname(pathname: string): Locale {
 export function usePortfolioConfig() {
   const pathname = usePathname();
   const currentLocale = getLocaleFromPathname(pathname);
+  const dynamicContent = useContext(PortfolioConfigContext);
 
   return {
-    config: configs[currentLocale] || configs.en,
+    config: dynamicContent?.config || configs[currentLocale] || configs.en,
     locale: currentLocale,
     isRTL: false, // None of our supported languages are RTL
   };

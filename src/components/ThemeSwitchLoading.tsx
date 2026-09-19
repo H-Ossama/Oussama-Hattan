@@ -17,7 +17,7 @@ const ThemeSwitchLoading = ({ isVisible, targetTheme }: ThemeSwitchLoadingProps)
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.16 }}
         >
           {/* Background overlay with theme transition */}
           <motion.div
@@ -35,7 +35,7 @@ const ThemeSwitchLoading = ({ isVisible, targetTheme }: ThemeSwitchLoadingProps)
               clipPath: 'circle(0% at 50% 50%)'
             }}
             transition={{
-              duration: 0.8,
+              duration: 0.36,
               ease: [0.22, 1, 0.36, 1]
             }}
           />
@@ -53,12 +53,12 @@ const ThemeSwitchLoading = ({ isVisible, targetTheme }: ThemeSwitchLoadingProps)
               <motion.div
                 className={`w-24 h-24 rounded-full border-2 border-dashed ${targetTheme === 'dark' ? 'border-accent-cyan/30' : 'border-blue-500/30'}`}
                 animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'linear' }}
               />
               <motion.div
                 className={`absolute inset-0 rounded-full border-2 border-t-transparent border-l-transparent ${targetTheme === 'dark' ? 'border-accent-cyan' : 'border-blue-600'}`}
                 animate={{ rotate: -360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
               />
 
               <div className="absolute inset-0 flex items-center justify-center">

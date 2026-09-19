@@ -154,15 +154,6 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-3">
             {/* <SimpleLanguageSwitcher variant="compact" /> */}
             <TestLanguageButton />
-            {/* Test Button */}
-            <motion.button
-              className="flex items-center justify-center w-10 h-10 glass-card rounded-lg text-theme-secondary hover:text-theme-primary hover:shadow-glow transition-all duration-300 bg-red-500/20 border-2 border-red-500"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => alert('Test button works!')}
-            >
-              <span className="text-sm font-bold">TEST</span>
-            </motion.button>
             {/* <ThemeToggle /> */}
           </div>
 
@@ -170,15 +161,6 @@ export default function Header() {
           <div className="md:hidden flex items-center space-x-3">
             {/* <SimpleLanguageSwitcher variant="mobile" /> */}
             <TestLanguageButton />
-            {/* Test Button Mobile */}
-            <motion.button
-              className="flex items-center justify-center w-10 h-10 glass-card rounded-lg text-theme-secondary hover:text-theme-primary hover:shadow-glow transition-all duration-300 bg-red-500/20 border-2 border-red-500"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => alert('Mobile test button works!')}
-            >
-              <span className="text-xs font-bold">T</span>
-            </motion.button>
             {/* <ThemeToggle /> */}
             {/* Enhanced Mobile Menu Button */}
             <motion.button

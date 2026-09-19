@@ -46,16 +46,19 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
       className={`group relative ${spanClasses}`}
     >
       <Link href={`/${locale}/projects/${project.id}`} className="block h-full">
+        <div className={`relative h-full overflow-hidden rounded-[1.75rem] border p-3 transition-all duration-500 group-hover:-translate-y-1 group-hover:border-accent-cyan/50 group-hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)] ${theme === 'dark' ? 'border-white/10 bg-white/[0.045]' : 'border-gray-200 bg-white'}`}>
+        <div className={`relative overflow-hidden rounded-[1.25rem] ${isMobile ? 'aspect-[4/5]' : 'aspect-[16/10]'}`}>
         {isMobile ? (
           // Mobile Phone Mockup - Tilted Design
-          <div className="relative w-full max-w-[260px] mx-auto">
-            <div className="relative aspect-[9/19] bg-gray-900 rounded-[0.75rem] shadow-2xl p-2 transform rotate-3 hover:rotate-0 transition-transform duration-500 border border-gray-800">
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent-cyan/10 to-transparent">
+            <div className="relative h-[92%] aspect-[9/19] bg-gray-900 rounded-[0.75rem] shadow-2xl p-2 transform rotate-3 group-hover:rotate-0 transition-transform duration-500 border border-gray-800">
               <div className="relative w-full h-full rounded-[0.5rem] overflow-hidden bg-dark-950 border border-gray-700">
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 bg-black rounded-full z-20 border border-gray-800" />
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 360px"
                   className="object-cover"
                 />
               </div>
@@ -63,7 +66,7 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
           </div>
         ) : (
           // Laptop Mockup for Web Projects
-          <div className="relative bg-gray-100 rounded-lg overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300">
+          <div className="absolute inset-0 bg-gray-100 overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300">
             {/* Laptop Screen */}
             <div className="relative aspect-[16/10] bg-gray-900 rounded-t-lg overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-6 bg-gray-800 flex items-center px-3 gap-1.5 z-10">
@@ -103,9 +106,16 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
             </div>
           </div>
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent opacity-70" />
+        <div className="absolute left-5 right-5 bottom-4 flex items-end justify-between text-white">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-white/70">{String(index + 1).padStart(2, '0')} / Selected work</span>
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-accent-cyan text-dark-950 transition-transform group-hover:rotate-45"><ArrowUpRight size={18} /></span>
+        </div>
+        </div>
 
         {/* Project Info Below Card */}
-        <div className="mt-4 text-center">
+        <div className="flex items-start justify-between gap-4 px-2 pb-2 pt-5">
+          <div>
           <h3 className={`text-lg font-bold mb-1 group-hover:text-accent-cyan transition-colors ${theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
             {project.title}
@@ -113,6 +123,9 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
           <p className="text-gray-500 text-sm font-mono">
             {project.category || 'Development'}
           </p>
+          </div>
+          <span className="mt-1 text-xs leading-5 text-right text-gray-500 max-w-[11rem] line-clamp-2">{project.description}</span>
+        </div>
         </div>
       </Link>
     </motion.div>

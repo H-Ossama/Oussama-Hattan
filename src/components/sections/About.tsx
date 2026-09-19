@@ -58,6 +58,7 @@ export default function About() {
                 src={config.personal.profileImage}
                 alt={config.personal.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 420px"
                 className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                 unoptimized
               />

@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\ClientWrapper.tsx -> ./LoadingScreen\":{\"id\":\"components\\\\ClientWrapper.tsx -> ./LoadingScreen\",\"files\":[\"static/chunks/_app-pages-browser_src_components_LoadingScreen_tsx.js\"]}}"

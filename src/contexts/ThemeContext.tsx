@@ -53,17 +53,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTargetTheme(newTheme) // Set target theme first
     setIsLoading(true)
 
-    // Store the theme switch flag in sessionStorage
-    sessionStorage.setItem('theme-switch-reload', 'true')
-
-    // Show loading animation with slower, smoother timing
-    setTimeout(() => {
-      setTheme(newTheme)
-      // Trigger page reload after theme change to ensure proper theme application
-      setTimeout(() => {
-        window.location.reload()
-      }, 600)
-    }, 400)
+    // Apply immediately; the overlay only finishes the visual transition.
+    setTheme(newTheme)
+    window.setTimeout(() => setIsLoading(false), 360)
   }
 
   const value = {
@@ -73,15 +65,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setTargetTheme(newTheme) // Set target theme first
       setIsLoading(true)
 
-      // Store the theme switch flag in sessionStorage
-      sessionStorage.setItem('theme-switch-reload', 'true')
-
-      setTimeout(() => {
-        setTheme(newTheme)
-        setTimeout(() => {
-          window.location.reload()
-        }, 600)
-      }, 400)
+      setTheme(newTheme)
+      window.setTimeout(() => setIsLoading(false), 360)
     },
     isLoading
   }

@@ -340,6 +340,12 @@ export default function DynamicIslandHeader() {
                 </button>
               ))}
             </nav>
+            <button
+              onClick={() => scrollToSection('#contact')}
+              className="header-talk"
+            >
+              Let's Talk <ArrowRight size={16} />
+            </button>
           </div>
         </motion.div>
       </header>

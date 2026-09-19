@@ -95,7 +95,7 @@ export default function FloatingControls() {
                                 >
                                     {/* Theme Switcher */}
                                     <div
-                                        className={`relative w-40 md:w-12 h-10 md:h-36 backdrop-blur-md border rounded-full p-1 flex flex-row md:flex-col justify-between cursor-pointer shadow-xl transition-all duration-300 hover:scale-105 ${theme === 'dark' ? 'bg-black/60 border-white/10' : 'bg-white/80 border-gray-200'
+                                        className={`glow-control relative w-40 md:w-12 h-10 md:h-36 backdrop-blur-md border rounded-full p-1 flex flex-row md:flex-col justify-between cursor-pointer shadow-xl transition-all duration-300 hover:scale-105 ${theme === 'dark' ? 'bg-black/60 border-white/10' : 'bg-white/80 border-gray-200'
                                             }`}
                                         onClick={toggleTheme}
                                     >
@@ -130,7 +130,7 @@ export default function FloatingControls() {
                                     </div>
 
                                     {/* Language Switcher - Horizontal on mobile, Vertical on md */}
-                                    <div className={`relative w-40 md:w-12 h-10 md:h-48 backdrop-blur-md border rounded-full p-1 flex flex-row md:flex-col justify-between shadow-xl transition-all duration-300 hover:scale-105 ${theme === 'dark' ? 'bg-black/60 border-white/10' : 'bg-white/80 border-gray-200'
+                                    <div className={`glow-control relative w-40 md:w-12 h-10 md:h-48 backdrop-blur-md border rounded-full p-1 flex flex-row md:flex-col justify-between shadow-xl transition-all duration-300 hover:scale-105 ${theme === 'dark' ? 'bg-black/60 border-white/10' : 'bg-white/80 border-gray-200'
                                         }`}>
 
                                         {/* Sliding Pill Indicator for Language */}

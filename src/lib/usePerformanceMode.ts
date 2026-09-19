@@ -84,7 +84,7 @@ export function getAnimationConfig(performanceMode: 'high' | 'medium' | 'low') {
     enableBackgroundEffects: performanceMode !== 'low',
     
     // How many animation particles to show
-    particleCount: performanceMode === 'high' ? 15 : performanceMode === 'medium' ? 8 : 3,
+    particleCount: performanceMode === 'high' ? 6 : performanceMode === 'medium' ? 4 : 2,
     
     // Whether to enable section reveal animations
     enableSectionAnimations: performanceMode !== 'low',
@@ -102,10 +102,10 @@ export function getAnimationConfig(performanceMode: 'high' | 'medium' | 'low') {
     enableMotionEffects: performanceMode !== 'low',
     
     // Whether to show smoke/fog effects
-    enableSmokeEffects: performanceMode === 'high',
+    enableSmokeEffects: false,
     
     // Whether to enable blur effects (can be very performance-heavy on mobile)
-    enableBlurEffects: performanceMode !== 'low',
+    enableBlurEffects: performanceMode === 'high',
     
     // Number of concurrent animations allowed
     maxConcurrentAnimations: performanceMode === 'high' ? Infinity : performanceMode === 'medium' ? 5 : 2

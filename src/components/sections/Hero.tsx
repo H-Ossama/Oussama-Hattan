@@ -38,12 +38,20 @@ export default function Hero() {
   }
 
   return (
-    <section id="home" className="min-h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden pt-20">
+    <section id="home" className="hero-section min-h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden pt-20">
 
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-purple/10 rounded-full blur-[128px]" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-cyan/10 rounded-full blur-[128px]" />
+      </div>
+
+      <div className="hero-orbit-field" aria-hidden="true">
+        <div className="hero-orbit hero-orbit--left"><span /><i /><b /></div>
+        <div className="hero-orbit hero-orbit--right"><span /><i /></div>
+        <div className="hero-code-card"><strong>JS</strong><code>function() {'{'}<br />&nbsp;&nbsp;return ideas<br />&nbsp;&nbsp;&nbsp;&nbsp;.filter(idea =&gt; idea.potential)<br />&nbsp;&nbsp;&nbsp;&nbsp;.map(idea =&gt; reality(idea));<br />{'}'}</code></div>
+        <div className="hero-side-note hero-side-note--top">{'// BUILD'}<br />{'// LEARN'}<br />{'// IMPROVE'}<br />{'// REPEAT'}</div>
+        <div className="hero-side-note hero-side-note--bottom">BASED IN<br />MOROCCO</div>
       </div>
 
       <div className="container-custom px-6 relative z-10 flex flex-col items-center text-center pb-48 md:pb-0">
@@ -55,12 +63,18 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-8"
         >
-          <h1 className={`text-5xl sm:text-7xl lg:text-9xl font-bold tracking-tighter mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+          <div className="hero-greeting">👋 <span>Bonjour, je suis</span></div>
+
+          <h1 className={`hero-title-ref text-5xl sm:text-7xl lg:text-9xl font-bold tracking-tighter mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-            {config.personal.name.toUpperCase()}
+            {config.personal.name.toUpperCase().split(' ').map((part: string, index: number) => (
+              <span key={part} className={index === 0 ? 'hero-title-ref__light' : 'hero-title-ref__accent'}>{part}{index === 0 ? ' ' : ''}</span>
+            ))}
           </h1>
 
-          <h2 className="text-xl sm:text-2xl font-mono text-accent-cyan tracking-widest uppercase mb-8">
+          <div className="hero-kicker"><span /> {config.personal.title} <span /></div>
+
+          <h2 className="text-xl sm:text-2xl font-mono text-accent-cyan tracking-widest uppercase mb-8 sr-only">
             {config.personal.title}
           </h2>
         </motion.div>
@@ -85,10 +99,9 @@ export default function Hero() {
         >
           <button
             onClick={scrollToContact}
-            className={`group relative px-8 py-4 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border border-white/10 hover:border-accent-purple/50' : 'bg-black/5 border border-gray-200 hover:border-accent-purple/50'
-              }`}
+            className="hero-cta hero-cta--primary group"
           >
-            <span className={`flex items-center gap-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            <span className="relative z-10 flex items-center gap-2 font-semibold text-dark-950">
               {labels.getInTouch} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </span>
             <div className="absolute inset-0 rounded-full bg-accent-purple/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -99,8 +112,7 @@ export default function Hero() {
               href={config.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative px-6 py-4 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border border-white/10 hover:border-accent-cyan/50' : 'bg-black/5 border border-gray-200 hover:border-accent-cyan/50'
-                }`}
+              className="hero-cta hero-cta--secondary group"
             >
               <span className={`flex items-center gap-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 <FileText size={18} className="text-accent-cyan" /> {labels.viewCV}
@@ -110,8 +122,7 @@ export default function Hero() {
             <a
               href={config.resume}
               download
-              className={`group relative p-4 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border border-white/10 hover:border-accent-cyan/50' : 'bg-black/5 border border-gray-200 hover:border-accent-cyan/50'
-                }`}
+              className="hero-cta hero-cta--icon group"
               title={labels.downloadCV}
             >
               <Download size={18} className="text-accent-cyan group-hover:scale-110 transition-transform" />

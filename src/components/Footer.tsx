@@ -1,6 +1,6 @@
 'use client'
 
-import { Github, Linkedin, Mail, Phone, Heart, Code2, Coffee } from 'lucide-react'
+import { Github, Linkedin, Mail, Phone, Code2, Coffee, ShieldCheck } from 'lucide-react'
 import { usePortfolioConfig } from '@/lib/localization'
 import { useTheme } from '@/contexts/ThemeContext'
 import { motion } from 'framer-motion'
@@ -95,6 +95,14 @@ export default function Footer() {
             <span className="flex items-center gap-1.5">
               <Coffee size={12} /> Tailwind
             </span>
+            <a
+              href="/admin"
+              aria-label="Open admin panel"
+              title="Admin panel"
+              className="ml-2 rounded-full border border-current/20 p-2 opacity-70 transition-all duration-300 hover:border-accent-cyan/70 hover:text-accent-cyan hover:opacity-100 hover:shadow-[0_0_18px_rgba(0,194,255,.3)]"
+            >
+              <ShieldCheck size={14} />
+            </a>
           </div>
         </div>
       </div>

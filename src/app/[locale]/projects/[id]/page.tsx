@@ -54,7 +54,7 @@ export default function ProjectPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                onClick={() => router.push(`/${locale}#work`)}
+                onClick={() => router.push(`/${locale}#projects`)}
                 className={`fixed top-24 left-6 md:top-10 md:left-10 z-[60] w-12 h-12 rounded-full backdrop-blur-xl border flex items-center justify-center shadow-lg transition-all duration-300 group ${theme === 'dark'
                         ? 'bg-dark-950/50 border-white/10 hover:bg-accent-cyan hover:text-dark-950'
                         : 'bg-white/80 border-gray-200 hover:bg-accent-cyan hover:text-white'
@@ -82,7 +82,7 @@ export default function ProjectPage() {
                         <div className="flex items-center gap-2 text-xs font-mono opacity-50 uppercase tracking-widest mb-24 transition-opacity hover:opacity-100">
                             <Link href={`/${locale}`} className="hover:text-accent-cyan transition-colors">Home</Link>
                             <span className="opacity-30">/</span>
-                            <Link href={`/${locale}#work`} className="hover:text-accent-cyan transition-colors">Portfolio</Link>
+                            <Link href={`/${locale}#projects`} className="hover:text-accent-cyan transition-colors">Portfolio</Link>
                             <span className="opacity-30">/</span>
                             <span className="text-accent-cyan">{project.title}</span>
                         </div>

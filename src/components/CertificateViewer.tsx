@@ -230,6 +230,7 @@ export default function CertificateViewer({
                       src={currentCertificate.image}
                       alt={`${institutionName} - ${currentCertificate.name}`}
                       fill
+                      sizes="(max-width: 768px) 100vw, 80vw"
                       className={`object-contain drop-shadow-2xl ${isFullscreen ? '' : 'rounded-lg'}`}
                       priority
                     />
@@ -254,6 +255,7 @@ export default function CertificateViewer({
                       src={cert.image}
                       alt={cert.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, 80vw"
                       className="object-cover"
                     />
                   </button>

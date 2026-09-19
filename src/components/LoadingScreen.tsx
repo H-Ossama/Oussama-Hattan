@@ -24,31 +24,31 @@ const LoadingScreen = ({ onComplete, theme = 'dark' }: { onComplete: () => void;
 
   return (
     <motion.div
-      className={`fixed inset-0 z-[100] flex items-center justify-center ${isDark ? 'bg-dark-950' : 'bg-gray-50'
+      className={`loading-screen fixed inset-0 z-[100] flex items-center justify-center ${isDark ? 'bg-dark-950' : 'bg-gray-50'
         }`}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <div className="relative w-full max-w-sm px-6">
+      <div className="loading-screen__panel relative w-full max-w-sm px-6">
         {/* Main Counter */}
         <div className="flex justify-between items-end mb-2 font-mono">
           <div className="flex flex-col">
             <span className={`text-[10px] uppercase tracking-[0.2em] mb-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>System Status</span>
             <span className={`text-xl font-bold ${isDark ? 'text-white' : 'text-dark-900'}`}>
-              INITIALIZING
+              OUSSAMA_HATTAN
               <motion.span
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >...</motion.span>
             </span>
           </div>
-          <div className={`text-4xl font-bold ${isDark ? 'text-accent-cyan' : 'text-blue-600'}`}>
+          <div className={`loading-screen__percent text-4xl font-bold ${isDark ? 'text-accent-cyan' : 'text-blue-600'}`}>
             {progress}%
           </div>
         </div>
 
         {/* Progress Bar Container */}
-        <div className={`h-1.5 w-full overflow-hidden rounded-full ${isDark ? 'bg-white/5' : 'bg-gray-200'}`}>
+        <div className={`loading-screen__bar h-1.5 w-full overflow-hidden rounded-full ${isDark ? 'bg-white/5' : 'bg-gray-200'}`}>
           <motion.div
             className="h-full bg-accent-cyan shadow-[0_0_10px_rgba(102,217,237,0.5)]"
             initial={{ width: 0 }}
