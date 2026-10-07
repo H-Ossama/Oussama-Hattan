@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { SITE_URL } from '@/lib/seo-utils'
