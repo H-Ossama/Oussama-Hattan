@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { ArrowDown, ArrowUp, Check, ExternalLink, FileText, ImagePlus, LayoutGrid, LogOut, Plus, Save, Sparkles, UploadCloud } from 'lucide-react'
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ozbtlxhmdkhajiixknzr.supabase.co'
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_qnBBwiYeF4ONFmAi8V93Kw_RDvBNlEQ'
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const locales = ['en', 'fr', 'de'] as const
 type Locale = typeof locales[number]
 type Project = Record<string, any>
@@ -38,7 +38,24 @@ export default function AdminPage() {
 
   async function signIn(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setMessage('Connecting securely…')
-    try { const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error_description || data.msg || data.error || 'Sign-in failed'); setAccessToken(data.access_token); setUser(data.user); setMessage('') } catch (error: any) { setMessage(error.message || 'Sign-in failed') } finally { setBusy(false) }
+    try {
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Admin sign-in is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, then restart or redeploy the app.')
+      }
+
+      let response: Response
+      try {
+        response = await fetch(`${SUPABASE_URL.replace(/\/$/, '')}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
+      } catch {
+        throw new Error('Cannot reach Supabase. Check that NEXT_PUBLIC_SUPABASE_URL is the correct, active project URL and that the browser can access it.')
+      }
+
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error_description || data.msg || data.error || 'Sign-in failed')
+      setAccessToken(data.access_token)
+      setUser(data.user)
+      setMessage('')
+    } catch (error: any) { setMessage(error.message || 'Sign-in failed') } finally { setBusy(false) }
   }
   async function save() { setBusy(true); setMessage('Saving changes…'); try { const response = await fetch('/api/admin/content', { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` }, body: JSON.stringify({ locale, content: config }) }); const result = await response.json(); setMessage(response.ok ? 'Changes published successfully.' : result.error || 'Save failed.') } catch { setMessage('Could not reach the server. Try again.') } finally { setBusy(false) } }
   async function upload(file: File, kind: 'project' | 'resume') { setBusy(true); setMessage(`Uploading ${kind === 'resume' ? localeMeta[locale].cv : 'project image'}…`); try { const form = new FormData(); form.append('file', file); form.append('kind', kind); form.append('locale', locale); const response = await fetch('/api/admin/upload', { method: 'POST', headers: { Authorization: `Bearer ${accessToken}` }, body: form }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Upload failed.'); if (kind === 'resume') setConfig((previous: any) => ({ ...previous, resume: result.url })); else updateProject('image', result.url); setMessage('Upload complete. Save to publish it.') } catch (error: any) { setMessage(error.message || 'Upload failed.') } finally { setBusy(false) } }

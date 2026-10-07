@@ -1,15 +1,19 @@
 import { NextResponse } from 'next/server'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import { getEditablePortfolioConfig } from '@/lib/portfolio-content'
 
 const validLocales = new Set(['en', 'fr', 'de'])
 
 async function requireUser(request: Request) {
-  const token = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '')
-  const supabase = createSupabaseServerClient(token)
-  if (!supabase) return { supabase: null, user: null }
-  const { data: { user } } = await supabase.auth.getUser(token)
-  return { supabase, user }
+  const token = request.headers.get('authorization')?.match(/^Bearer\s+(.+)$/i)?.[1]
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!token || !url || !anonKey) return { supabase: null, user: null }
+
+  const supabase = createClient(url, anonKey, { auth: { persistSession: false, autoRefreshToken: false } })
+  const { data: { user }, error } = await supabase.auth.getUser(token)
+  if (error) console.error('Admin token validation failed:', error.message)
+  return { supabase, user: error ? null : user }
 }
 
 export async function GET(request: Request) {
