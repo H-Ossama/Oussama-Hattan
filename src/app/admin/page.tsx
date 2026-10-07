@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { ArrowDown, ArrowUp, Check, ExternalLink, FileText, ImagePlus, LayoutGrid, LogOut, Plus, Save, Sparkles, UploadCloud } from 'lucide-react'
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ozbtlxhmdkhajiixknzr.supabase.co'
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_qnBBwiYeF4ONFmAi8V93Kw_RDvBNlEQ'
 const locales = ['en', 'fr', 'de'] as const
 type Locale = typeof locales[number]
 type Project = Record<string, any>
@@ -39,10 +39,6 @@ export default function AdminPage() {
   async function signIn(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setMessage('Connecting securely…')
     try {
-      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-        throw new Error('Admin sign-in is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, then restart or redeploy the app.')
-      }
-
       let response: Response
       try {
         response = await fetch(`${SUPABASE_URL.replace(/\/$/, '')}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
