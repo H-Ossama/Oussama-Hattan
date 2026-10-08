@@ -3,6 +3,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import { ArrowDown, ArrowUp, FileText, Plus, Save, Trash2, UploadCloud } from 'lucide-react'
 import type { Locale } from '@/lib/localization'
+import FileHoverPreview from '@/components/admin/FileHoverPreview'
 
 type Certificate = { name: string; image: string }
 type EducationEntry = {
@@ -171,7 +172,10 @@ export default function EducationEditor({ config, setConfig, locale, accessToken
 
           <div className="rounded-xl border border-white/[0.08] p-4">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold">Diploma document</h4><p className="mt-1 text-xs text-slate-500">Upload a PDF or paste a public document URL.</p></div><label className={`inline-flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold hover:border-amber-300/40 ${busy ? 'pointer-events-none opacity-50' : ''}`}><UploadCloud size={14} /> Upload PDF<input className="sr-only" type="file" accept="application/pdf,.pdf" disabled={busy} onChange={(e) => { const file = e.target.files?.[0]; if (file) uploadFile(file, 'documentUrl'); e.currentTarget.value = '' }} /></label></div>
-            <input className={fieldClass} type="url" value={current.documentUrl || ''} onChange={(e) => updateEntry('documentUrl', e.target.value)} placeholder="https://…/diploma.pdf" />
+            <div className="flex items-center gap-3">
+              <input className={fieldClass} type="url" value={current.documentUrl || ''} onChange={(e) => updateEntry('documentUrl', e.target.value)} placeholder="https://…/diploma.pdf" />
+              {current.documentUrl && <FileHoverPreview src={current.documentUrl} label={`${current.degree || 'Diploma'} document`} kind="pdf" />}
+            </div>
           </div>
 
           <div className="rounded-xl border border-white/[0.08] p-4">
@@ -180,7 +184,7 @@ export default function EducationEditor({ config, setConfig, locale, accessToken
               {(current.certificates || []).map((certificate, index) => (
                 <div key={index} className="grid gap-3 rounded-xl border border-white/[0.06] bg-black/10 p-3 sm:grid-cols-[1fr_1.3fr_auto_auto] sm:items-end">
                   <label className="block space-y-2"><span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Document name</span><input className={fieldClass} value={certificate.name || ''} onChange={(e) => updateCertificate(index, 'name', e.target.value)} placeholder="Diploma Certificate" /></label>
-                  <label className="block space-y-2"><span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Image URL</span><input className={fieldClass} type="url" value={certificate.image || ''} onChange={(e) => updateCertificate(index, 'image', e.target.value)} placeholder="https://…" /></label>
+                  <div className="space-y-2"><label className="block space-y-2"><span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Image URL</span><input className={fieldClass} type="url" value={certificate.image || ''} onChange={(e) => updateCertificate(index, 'image', e.target.value)} placeholder="https://…" /></label>{certificate.image && <FileHoverPreview src={certificate.image} label={certificate.name || 'Certificate'} kind="image" />}</div>
                   <label className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-3 text-xs font-semibold hover:border-amber-300/40 ${busy ? 'pointer-events-none opacity-50' : ''}`}><UploadCloud size={14} /> Upload image<input className="sr-only" type="file" accept="image/png,image/jpeg,image/webp" disabled={busy} onChange={(e) => { const file = e.target.files?.[0]; if (file) uploadFile(file, index); e.currentTarget.value = '' }} /></label>
                   <button aria-label={`Remove ${certificate.name || 'certificate'}`} onClick={() => removeCertificate(index)} className="rounded-lg border border-rose-300/20 p-3 text-rose-200 hover:bg-rose-300/10"><Trash2 size={14} /></button>
                 </div>
