@@ -16,16 +16,21 @@ export async function POST(request: Request) {
     ? 'resumes'
     : requestedKind === 'certificate'
       ? 'certificates'
-      : requestedKind === 'education-document'
+        : requestedKind === 'education-document'
         ? 'education'
+        : requestedKind === 'project-video'
+          ? 'videos'
         : 'projects'
   const locale = String(formData.get('locale') || 'en')
   if (!['en', 'fr', 'de'].includes(locale)) return NextResponse.json({ error: 'Invalid locale' }, { status: 400 })
   if (!(file instanceof File)) return NextResponse.json({ error: 'A file is required' }, { status: 400 })
-  if (file.size > 10 * 1024 * 1024) return NextResponse.json({ error: 'Maximum file size is 10MB' }, { status: 413 })
+  const maxFileSize = requestedKind === 'project-video' ? 4 * 1024 * 1024 : 10 * 1024 * 1024
+  if (file.size > maxFileSize) return NextResponse.json({ error: `Maximum file size is ${requestedKind === 'project-video' ? '4MB for videos' : '10MB'}` }, { status: 413 })
   if (requestedKind === 'resume' && file.type !== 'application/pdf') return NextResponse.json({ error: 'CVs must be PDF files' }, { status: 400 })
   if (requestedKind === 'education-document' && file.type !== 'application/pdf') return NextResponse.json({ error: 'Diploma documents must be PDF files' }, { status: 400 })
   if (requestedKind === 'certificate' && !['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return NextResponse.json({ error: 'Certificate scans must be JPG, PNG, or WebP images' }, { status: 400 })
+  if (['project', 'project-screenshot'].includes(requestedKind) && !['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'].includes(file.type)) return NextResponse.json({ error: 'Project images must be JPG, PNG, WebP, GIF, or SVG files' }, { status: 400 })
+  if (requestedKind === 'project-video' && !['video/mp4', 'video/webm'].includes(file.type)) return NextResponse.json({ error: 'Project videos must be MP4 or WebM files' }, { status: 400 })
 
   const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-')
   const path = `${kind}/${locale}/${Date.now()}-${safeName}`

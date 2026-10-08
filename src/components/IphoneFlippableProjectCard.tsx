@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { ExternalLink, Github, RotateCcw, Calendar, Layers, Code, CheckCircle, HelpCircle } from 'lucide-react'
 import { useTheme } from '@/contexts/ThemeContext'
 import ProjectScreenshotsCarousel from './ProjectScreenshotsCarousel'
+import HoverPlayVideo from './HoverPlayVideo'
 
 interface ProjectDetailProps {
   title: string
@@ -14,6 +15,8 @@ interface ProjectDetailProps {
   liveUrl?: string
   image: string
   screenshots?: string[]
+  primaryMediaType?: 'image' | 'video'
+  videoUrl?: string
   featured: boolean
   period?: string
   role?: string
@@ -232,13 +235,13 @@ export default function IphoneFlippableProjectCard({
             <div className="mx-auto w-full max-w-[340px]">
               <div className="relative rounded-[2.75rem] bg-zinc-900/95 p-[10px] shadow-2xl border border-white/10">
                 <div className="relative rounded-[2.35rem] bg-black overflow-hidden aspect-[9/19.5]">
-                  <ProjectScreenshotsCarousel
+                  {project.primaryMediaType === 'video' && project.videoUrl ? <HoverPlayVideo src={project.videoUrl} poster={project.image} label={`${project.title} preview`} className="bg-black" /> : <ProjectScreenshotsCarousel
                     screenshots={screenshots}
                     altBase={`${project.title} screenshot`}
                     fit="contain"
                     containPosition="top"
                     className="bg-black"
-                  />
+                  />}
 
                   {/* Notch */}
                   <div className="absolute top-2 left-1/2 -translate-x-1/2 h-6 w-28 rounded-full bg-black/90 border border-white/10" />

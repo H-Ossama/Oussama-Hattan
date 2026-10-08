@@ -8,12 +8,15 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import HoverPlayVideo from '@/components/HoverPlayVideo'
 
 interface Project {
   id: string | number
   title: string
   description: string
   image: string
+  primaryMediaType?: 'image' | 'video'
+  videoUrl?: string
   technologies?: string[]
   techStack?: string[]
   liveUrl?: string
@@ -55,13 +58,13 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
             <div className="relative h-[92%] aspect-[9/19] bg-gray-900 rounded-[0.75rem] shadow-2xl p-2 transform rotate-3 group-hover:rotate-0 transition-transform duration-500 border border-gray-800">
               <div className="relative w-full h-full rounded-[0.5rem] overflow-hidden bg-dark-950 border border-gray-700">
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 bg-black rounded-full z-20 border border-gray-800" />
-                <Image
+                {project.primaryMediaType === 'video' && project.videoUrl ? <HoverPlayVideo src={project.videoUrl} poster={project.image} label={`${project.title} preview`} /> : <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
                   className="object-cover"
-                />
+                />}
               </div>
             </div>
           </div>
@@ -76,7 +79,7 @@ const ProjectCard = ({ project, index, locale, theme }: { project: Project, inde
                 <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
               </div>
               <div className="pt-6 h-full">
-                {project.image.endsWith('.svg') ? (
+                {project.primaryMediaType === 'video' && project.videoUrl ? <HoverPlayVideo src={project.videoUrl} poster={project.image} label={`${project.title} preview`} /> : project.image?.endsWith('.svg') ? (
                   <img
                     src={project.image}
                     alt={project.title}
@@ -217,7 +220,7 @@ export default function EnhancedProjects() {
                   <div className="relative w-full h-full rounded-[0.75rem] overflow-hidden bg-dark-950 border border-gray-700">
                     {/* Samsung S24 Ultra Punch Hole */}
                     <div className="absolute top-4 left-1/2 -translate-x-1/2 w-3 h-3 bg-black rounded-full z-20 border border-gray-800" />
-                    {featuredProject.image.endsWith('.svg') ? (
+                    {featuredProject.primaryMediaType === 'video' && featuredProject.videoUrl ? <HoverPlayVideo src={featuredProject.videoUrl} poster={featuredProject.image} label={`${featuredProject.title} preview`} /> : featuredProject.image?.endsWith('.svg') ? (
                       <img
                         src={featuredProject.image}
                         alt={featuredProject.title}

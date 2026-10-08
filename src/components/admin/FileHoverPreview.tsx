@@ -7,9 +7,10 @@ type Props = {
   src: string
   label: string
   kind?: 'pdf' | 'image'
+  thumbnailClassName?: string
 }
 
-export default function FileHoverPreview({ src, label, kind }: Props) {
+export default function FileHoverPreview({ src, label, kind, thumbnailClassName }: Props) {
   const isPdf = kind ? kind === 'pdf' : /\.pdf(?:$|[?#])/i.test(src)
   const [position, setPosition] = useState<{ left: number; top: number } | null>(null)
 
@@ -38,7 +39,7 @@ export default function FileHoverPreview({ src, label, kind }: Props) {
         rel="noreferrer"
         aria-label={`Open ${label}`}
         title={`Hover to preview ${label}; click to open`}
-        className="flex h-16 w-12 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-[#101820] transition hover:border-amber-300/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300"
+        className={thumbnailClassName || "flex h-16 w-12 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-[#101820] transition hover:border-amber-300/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300"}
       >
         {isPdf ? (
           <iframe title={`${label} thumbnail`} src={`${src}#page=1&toolbar=0&navpanes=0&scrollbar=0`} tabIndex={-1} className="pointer-events-none h-[84px] w-[60px] origin-center scale-[0.8] border-0" />

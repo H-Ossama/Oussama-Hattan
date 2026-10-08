@@ -6,6 +6,7 @@ import { ExternalLink, Github, Calendar, RotateCcw, Layers, Code, CheckCircle, H
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
 import ProjectScreenshotsCarousel from './ProjectScreenshotsCarousel'
+import HoverPlayVideo from './HoverPlayVideo'
 
 interface ProjectDetailProps {
   title: string
@@ -15,6 +16,8 @@ interface ProjectDetailProps {
   liveUrl?: string
   image: string
   screenshots?: string[]
+  primaryMediaType?: 'image' | 'video'
+  videoUrl?: string
   featured: boolean
   period?: string
   role?: string
@@ -238,7 +241,7 @@ export default function FlippableProjectCard({ project, index }: {
           <div className="h-full relative">
             {/* Project Image */}
             <div className="relative h-64 overflow-hidden">
-              {project.screenshots && project.screenshots.length > 0 ? (
+              {project.primaryMediaType === 'video' && project.videoUrl ? <HoverPlayVideo src={project.videoUrl} poster={project.image} label={`${project.title} preview`} /> : project.screenshots && project.screenshots.length > 0 ? (
                 <ProjectScreenshotsCarousel
                   screenshots={project.screenshots}
                   altBase={`${project.title} screenshot`}

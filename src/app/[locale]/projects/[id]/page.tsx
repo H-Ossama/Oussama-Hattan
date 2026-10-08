@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import NextProjectWidget from '@/components/NextProjectWidget'
 import { useTheme } from '@/contexts/ThemeContext'
+import HoverPlayVideo from '@/components/HoverPlayVideo'
 
 export default function ProjectPage() {
     const params = useParams()
@@ -152,7 +153,14 @@ export default function ProjectPage() {
                             ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
                             : 'space-y-24'}
                     `}>
-                        {(project.screenshots || [project.image]).map((img: string, idx: number) => (
+                        {project.primaryMediaType === 'video' && project.videoUrl && <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8 }}
+                            className={`relative aspect-video overflow-hidden rounded-xl border shadow-2xl ${theme === 'dark' ? 'border-white/5 bg-dark-900' : 'border-gray-200 bg-white'}`}
+                        ><HoverPlayVideo src={project.videoUrl} poster={project.image} label={`${project.title} primary video`} /></motion.div>}
+                        {(project.screenshots?.length ? project.screenshots : [project.image]).filter(Boolean).map((img: string, idx: number) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, y: 40 }}
