@@ -10,7 +10,10 @@ async function requireUser(request: Request) {
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_qnBBwiYeF4ONFmAi8V93Kw_RDvBNlEQ'
   if (!token || !url || !anonKey) return { supabase: null, user: null }
 
-  const supabase = createClient(url, anonKey, { auth: { persistSession: false, autoRefreshToken: false } })
+  const supabase = createClient(url, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+    global: { headers: { Authorization: `Bearer ${token}` } },
+  })
   const { data: { user }, error } = await supabase.auth.getUser(token)
   if (error) console.error('Admin token validation failed:', error.message)
   return { supabase, user: error ? null : user }

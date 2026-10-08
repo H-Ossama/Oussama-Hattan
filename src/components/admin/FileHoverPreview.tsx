@@ -1,6 +1,7 @@
 'use client'
 
 import { FileText } from 'lucide-react'
+import { useState } from 'react'
 
 type Props = {
   src: string
@@ -10,9 +11,27 @@ type Props = {
 
 export default function FileHoverPreview({ src, label, kind }: Props) {
   const isPdf = kind ? kind === 'pdf' : /\.pdf(?:$|[?#])/i.test(src)
+  const [position, setPosition] = useState<{ left: number; top: number } | null>(null)
+
+  function showPreview(element: HTMLSpanElement) {
+    const bounds = element.getBoundingClientRect()
+    const popupWidth = Math.min(window.innerWidth * 0.7, 360) + 16
+    const popupHeight = Math.min(window.innerHeight * 0.65, 500) + 48
+    const left = bounds.right + popupWidth <= window.innerWidth - 8
+      ? bounds.right + 8
+      : Math.max(8, bounds.left - popupWidth - 8)
+    const top = Math.max(8, Math.min(bounds.top, window.innerHeight - popupHeight - 8))
+    setPosition({ left, top })
+  }
 
   return (
-    <span className="group/file-preview relative inline-flex shrink-0 align-middle">
+    <span
+      className="relative inline-flex shrink-0 align-middle"
+      onMouseEnter={(event) => showPreview(event.currentTarget)}
+      onMouseLeave={() => setPosition(null)}
+      onFocus={(event) => showPreview(event.currentTarget)}
+      onBlur={() => setPosition(null)}
+    >
       <a
         href={src}
         target="_blank"
@@ -29,7 +48,9 @@ export default function FileHoverPreview({ src, label, kind }: Props) {
       </a>
       <span
         role="tooltip"
-        className="pointer-events-none invisible absolute left-full top-0 z-[100] ml-2 origin-top-left scale-95 rounded-xl border border-white/15 bg-[#0b1117] p-2 opacity-0 shadow-2xl shadow-black/60 transition-[opacity,transform,visibility] duration-100 ease-out group-hover/file-preview:visible group-hover/file-preview:scale-100 group-hover/file-preview:opacity-100 group-focus-within/file-preview:visible group-focus-within/file-preview:scale-100 group-focus-within/file-preview:opacity-100"
+        aria-hidden={!position}
+        className={`pointer-events-none fixed z-[100] origin-top-left rounded-xl border border-white/15 bg-[#0b1117] p-2 shadow-2xl shadow-black/60 transition-[opacity,transform] duration-100 ease-out ${position ? 'scale-100 opacity-100' : 'invisible scale-95 opacity-0'}`}
+        style={position ? { left: position.left, top: position.top } : undefined}
       >
         <span className="mb-1.5 flex items-center gap-1.5 text-[10px] font-semibold text-slate-300">
           {isPdf && <FileText size={12} className="text-amber-200" />}
