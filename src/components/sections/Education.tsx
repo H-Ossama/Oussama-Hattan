@@ -19,6 +19,7 @@ interface EducationEntry {
   grade?: string
   description: string
   certificates?: Certificate[]
+  documentUrl?: string
   projectUrl?: string
   screenshots?: string[]
 }
@@ -81,6 +82,18 @@ const EducationCard = ({ edu, index, locale, theme }: { edu: EducationEntry, ind
               <span>View Certificates</span>
               <ArrowUpRight size={14} />
             </Link>
+          )}
+          {edu.documentUrl && (
+            <a href={edu.documentUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent-cyan hover:text-white transition-colors">
+              <span>View Diploma</span>
+              <ArrowUpRight size={14} />
+            </a>
+          )}
+          {edu.projectUrl && (
+            <a href={edu.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent-cyan hover:text-white transition-colors">
+              <span>Related Project</span>
+              <ArrowUpRight size={14} />
+            </a>
           )}
           {/* ALX online link fallback */}
           {edu.institution.includes('ALX') && (

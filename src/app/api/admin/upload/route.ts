@@ -11,11 +11,21 @@ export async function POST(request: Request) {
 
   const formData = await request.formData()
   const file = formData.get('file')
-  const kind = formData.get('kind') === 'resume' ? 'resumes' : 'projects'
+  const requestedKind = String(formData.get('kind') || 'project')
+  const kind = requestedKind === 'resume'
+    ? 'resumes'
+    : requestedKind === 'certificate'
+      ? 'certificates'
+      : requestedKind === 'education-document'
+        ? 'education'
+        : 'projects'
   const locale = String(formData.get('locale') || 'en')
   if (!['en', 'fr', 'de'].includes(locale)) return NextResponse.json({ error: 'Invalid locale' }, { status: 400 })
   if (!(file instanceof File)) return NextResponse.json({ error: 'A file is required' }, { status: 400 })
   if (file.size > 10 * 1024 * 1024) return NextResponse.json({ error: 'Maximum file size is 10MB' }, { status: 413 })
+  if (requestedKind === 'resume' && file.type !== 'application/pdf') return NextResponse.json({ error: 'CVs must be PDF files' }, { status: 400 })
+  if (requestedKind === 'education-document' && file.type !== 'application/pdf') return NextResponse.json({ error: 'Diploma documents must be PDF files' }, { status: 400 })
+  if (requestedKind === 'certificate' && !['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return NextResponse.json({ error: 'Certificate scans must be JPG, PNG, or WebP images' }, { status: 400 })
 
   const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-')
   const path = `${kind}/${locale}/${Date.now()}-${safeName}`

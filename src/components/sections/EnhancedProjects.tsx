@@ -19,6 +19,7 @@ interface Project {
   liveUrl?: string
   githubUrl?: string
   featured?: boolean
+  hidden?: boolean
   category?: string
 }
 
@@ -160,7 +161,7 @@ export default function EnhancedProjects() {
   const locale = (params?.locale as string) || 'en'
   const [filter, setFilter] = useState('All')
 
-  const allProjects = (config.projects || []) as Project[]
+  const allProjects = ((config.projects || []) as Project[]).filter((project) => !project.hidden)
   const categories = [
     { name: 'All', count: allProjects.length },
     { name: 'Web Development', count: allProjects.filter(p => p.category === 'Web Development').length },

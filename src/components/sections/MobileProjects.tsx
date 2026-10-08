@@ -9,7 +9,7 @@ export default function MobileProjects() {
   const { config } = usePortfolioConfig()
   const { theme } = useTheme()
 
-  const projects = (config as any).mobileProjects || []
+  const projects = ((config as any).mobileProjects || []).filter((project: any) => !project.hidden)
 
   if (!projects || projects.length === 0) {
     return null

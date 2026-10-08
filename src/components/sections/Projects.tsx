@@ -137,6 +137,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
 export default function Projects() {
   const { config } = usePortfolioConfig()
+  const projects = (config.projects || []).filter((project: any) => !project.hidden)
   const labels = useNavigationLabels()
   const { theme } = useTheme()
 
@@ -170,13 +171,13 @@ export default function Projects() {
 
         {/* Featured Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {config.projects.filter(project => project.featured).map((project, index) => (
+          {projects.filter(project => project.featured).map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
         {/* All Projects Section */}
-        {config.projects.length > config.projects.filter(project => project.featured).length && (
+        {projects.length > projects.filter(project => project.featured).length && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -188,13 +189,13 @@ export default function Projects() {
               {config.sections?.projects?.moreProjects?.split(' ')[0] || 'More'} <span className="text-gradient">{config.sections?.projects?.moreProjects?.split(' ').slice(1).join(' ') || 'Projects'}</span>
             </h3>
             <div className="grid md:grid-cols-2 gap-8">
-              {config.projects
+              {projects
                 .filter(project => !project.featured)
                 .map((project, index) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
-                    index={index + config.projects.filter(project => project.featured).length}
+                    index={index + projects.filter(project => project.featured).length}
                   />
                 ))}
             </div>

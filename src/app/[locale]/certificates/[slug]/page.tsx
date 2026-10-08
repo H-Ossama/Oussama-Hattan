@@ -1,10 +1,12 @@
 import CertificateViewer from '@/components/CertificateViewer';
-import { getPortfolioConfig, type Locale } from '@/lib/localization-server';
+import type { Locale } from '@/lib/localization-server';
+import { getEditablePortfolioConfig } from '@/lib/portfolio-content';
 import { slugify } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 const locales: Locale[] = ['en', 'fr', 'de'];
+export const dynamic = 'force-dynamic';
 
 type PageParams = {
   params: {
@@ -17,9 +19,9 @@ function resolveLocale(locale: string): Locale | null {
   return locales.includes(locale as Locale) ? (locale as Locale) : null;
 }
 
-function getEducationEntry(locale: Locale, slug: string) {
-  const config = getPortfolioConfig(locale);
-  const match = config.education.find((entry) => {
+async function getEducationEntry(locale: Locale, slug: string) {
+  const config = await getEditablePortfolioConfig(locale);
+  const match = config.education.find((entry: any) => {
     const entrySlug = slugify(`${entry.institution}-${entry.degree}`);
     return entrySlug === slug;
   });
@@ -27,23 +29,10 @@ function getEducationEntry(locale: Locale, slug: string) {
   return { config, entry: match };
 }
 
-export async function generateStaticParams() {
-  return locales.flatMap((locale) => {
-    const config = getPortfolioConfig(locale);
-
-    return (config.education || [])
-      .filter((entry) => Array.isArray(entry.certificates) && entry.certificates.length > 0)
-      .map((entry) => ({
-        locale,
-        slug: slugify(`${entry.institution}-${entry.degree}`),
-      }));
-  });
-}
-
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const fallbackLocale: Locale = 'en';
   const locale = resolveLocale(params.locale) ?? fallbackLocale;
-  const { entry, config } = getEducationEntry(locale, params.slug);
+  const { entry, config } = await getEducationEntry(locale, params.slug);
 
   if (!entry || !Array.isArray(entry.certificates) || entry.certificates.length === 0) {
     return {
@@ -69,14 +58,14 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   };
 }
 
-export default function CertificatePage({ params }: PageParams) {
+export default async function CertificatePage({ params }: PageParams) {
   const locale = resolveLocale(params.locale);
 
   if (!locale) {
     notFound();
   }
 
-  const { entry, config } = getEducationEntry(locale, params.slug);
+  const { entry, config } = await getEducationEntry(locale, params.slug);
 
   if (!entry || !entry.certificates || entry.certificates.length === 0) {
     notFound();

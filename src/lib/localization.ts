@@ -26,6 +26,7 @@ export type PortfolioProject = {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  hidden?: boolean;
 };
 
 export type PortfolioConfig = {

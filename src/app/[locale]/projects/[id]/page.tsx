@@ -19,8 +19,8 @@ export default function ProjectPage() {
     const { theme } = useTheme()
 
     const allProjects = [
-        ...(config.projects || []),
-        ...(config.mobileProjects || [])
+        ...((config.projects || []).filter((project: any) => !project.hidden)),
+        ...((config.mobileProjects || []).filter((project: any) => !project.hidden))
     ]
 
     // Find current project
